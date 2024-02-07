@@ -1,0 +1,48 @@
+import requests
+
+def get_weather(api_key, location):
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+
+    # Determine if the user input is a city name or a zip code
+    if location.isdigit():
+        params = {"zip": location}
+    else:
+        params = {"q": location}
+
+    # Add API key and units to parameters
+    params["appid"] = api_key
+    params["units"] = "metric"  # You can change this to "imperial" for Fahrenheit
+
+    # Make the API request
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    return data
+
+def display_weather(weather_data):
+    if weather_data["cod"] == "404":
+        print("City not found. Please check your input.")
+        return
+
+    city_name = weather_data["name"]
+    temperature = weather_data["main"]["temp"]
+    humidity = weather_data["main"]["humidity"]
+    wind_speed = weather_data["wind"]["speed"]
+    weather_description = weather_data["weather"][0]["description"]
+
+    print(f"Weather information for {city_name}:")
+    print(f"Temperature: {temperature}°C")
+    print(f"Humidity: {humidity}%")
+    print(f"Wind Speed: {wind_speed} m/s")
+    print(f"Weather Description: {weather_description}")
+
+def main():
+    api_key = "dbf0670f931150e8ab83c331c626c786"  # Replacing with actual API key
+    location = input("Enter the name of a city or a zip code: ")
+
+    weather_data = get_weather(api_key, location)
+
+    display_weather(weather_data)
+
+if __name__ == "__main__":
+    main()
