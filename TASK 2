@@ -1,0 +1,43 @@
+# Simple Calculator Program with User-Friendly Messages
+
+def addition(x, y):
+    return x + y
+
+def subtraction(x, y):
+    return x - y
+
+def multiplication(x, y):
+    return x * y
+
+def division(x, y):
+    if y != 0:
+        return x / y
+    else:
+        return "Cannot divide by zero"
+
+# Get user input
+num1 = float(input("Enter the first number: "))
+num2 = float(input("Enter the second number: "))
+
+# Get operation choice
+operation = input("Enter operation (+, -, *, /): ")
+
+# Perform calculation based on user input
+if operation == '+':
+    result = addition(num1, num2)
+    operator = 'sum'
+elif operation == '-':
+    result = subtraction(num1, num2)
+    operator = 'difference'
+elif operation == '*':
+    result = multiplication(num1, num2)
+    operator = 'product'
+elif operation == '/':
+    result = division(num1, num2)
+    operator = 'quotient'
+else:
+    result = "Invalid operation"
+    operator = 'calculation'
+
+# Display the result with a user-friendly message
+print(f"The {operator} of {num1} and {num2} is: {result}")
